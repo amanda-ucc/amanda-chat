@@ -1,0 +1,5 @@
+fastapi
+logfire
+pydantic_ai
+opentelemetry-instrumentation-asgi
+uvicorn
