@@ -2,8 +2,8 @@
 
 ## Pre-reqs
 
-docker desktop
-python version 3.12
+docker desktop <br>
+python version 3.12 <br>
 
 ## Setup up the data source
 
