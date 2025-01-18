@@ -5,14 +5,21 @@
 docker desktop <br>
 python version 3.12 <br>
 
+## setup done once
+```bash
+python -m venv amanda-chat
+source amanda-chat/bin/activate
+pip install -r requirements.txt
+```
+
 ## Setup up the data source
 
+### the data stuff - in a seperate terminal
 ```bash
+# in a seperate terminal
 docker compose up
-pip install -r requirements.txt
-python chat_server.py
 
-# to shut down 
+# when done - to shut down 
 ctrl + c
 docker compose down
 
@@ -22,3 +29,13 @@ docker volume rm grade12-culminating_weaviate_data
 
 # to list volumes
 docker volume ls
+```
+
+# the server
+```bash
+source amanda-chat/bin/activate
+
+
+pip install -r requirements.txt
+python chat_server.py
+```
