@@ -27,7 +27,7 @@ import logfire
 import logging
 from httpx import AsyncClient
 
-from fastapi import Body, Depends, Form, HTTPException, Request
+from fastapi import Body, Depends, File, Form, HTTPException, Request, UploadFile
 from fastapi.responses import HTMLResponse, JSONResponse, Response, StreamingResponse
 from pydantic import BaseModel
 from typing_extensions import TypedDict
@@ -43,6 +43,7 @@ from pydantic_ai.messages import (
 )
 
 from database import Database
+from vector_db import extract_text_from_pdf, ingest_text_to_weaviate, weaviate_client, search_documents
 
 ## Load environment variables
 load_dotenv()
@@ -134,6 +135,7 @@ async def get_lat_lng(
     else:
         raise ModelRetry('Could not find the location')
 
+# Weather tool
 @agent.tool
 async def get_weather(ctx: RunContext[Deps], lat: float, lng: float) -> dict[str, Any]:
     """Get the weather at a location.
@@ -195,6 +197,22 @@ async def get_weather(ctx: RunContext[Deps], lat: float, lng: float) -> dict[str
         'temperature': f'{values["temperatureApparent"]:0.0f}°C',
         'description': code_lookup.get(values['weatherCode'], 'Unknown'),
     }
+
+
+@agent.tool
+async def retrieve(context: RunContext[Deps], search_query: str) -> str:
+    """Retrieve documents based on a search query.
+
+    Args:
+        context: The call context.
+        search_query: The search query.
+    """
+    ret_string = ''
+    docs = search_documents(search_query)
+    
+    for doc in docs:
+        ret_string += doc.properties["content"]
+    return ret_string
 
 
 ## Handle the database connection
@@ -285,9 +303,7 @@ async def post_chat(
     prompt: Annotated[str, fastapi.Form()], database: Database = Depends(get_db)
 ) -> StreamingResponse:
     async def stream_messages():
-
-        print(f"Prompt: {prompt}")
-        
+       
         # stream the user prompt right away
         yield (
                 json.dumps(
@@ -331,6 +347,21 @@ async def post_chat(
 
     return StreamingResponse(stream_messages(), media_type='text/plain')
 
+@app.post("/upload/")
+async def upload_file(file: UploadFile = File(...)):
+    if file.content_type != "application/pdf":
+        return JSONResponse(status_code=400, content={"message": "Invalid file type. Only PDFs are allowed."})
+
+    # Read the file content
+    content = await file.read()
+
+    # Convert PDF content to text
+    text_content = extract_text_from_pdf(content)
+
+    # Ingest the text content to Weaviate
+    ingest_text_to_weaviate(text_content)
+
+    return {"filename": file.filename, "message": "File uploaded successfully"}
 
 
 if __name__ == '__main__':

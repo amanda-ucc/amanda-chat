@@ -44,7 +44,7 @@
 
 <body>
     <main class="border rounded mx-auto my-5 p-4">
-      <h1>Amanda's AI </h1>
+      <h1>Amanda's AI Agent</h1>
       <p>Type <b>Help</b> to learn about me. </p> 
       <p>Type <b>About</b> to learn about my creator the great Amanda Uccello</p>
 
@@ -55,15 +55,32 @@
       </div>
   
       <!-- Chat Form Section -->
-      <form method="post">
+      <form id="chatInput" method="post">
         <input id="prompt-input" name="prompt" class="form-control"/>
         <div class="d-flex justify-content-end">
+          <button id="showFormButton" type="button"  class="btn btn-primary mt-2 me-2">Show Upload Form</button>
           <button class="btn btn-primary mt-2">Send</button>
         </div>
       </form>
       <div id="error" class="d-none text-danger">
         Error occurred, check the console for more information.
       </div>
+
+      <!-- File upload section -->
+      <div class="container mt-5">
+        <form id="uploadForm" style="display: none;">
+            <div class="mb-3">
+                <label for="fileInput" class="form-label">Choose PDF file</label>
+                <input type="file" class="form-control" id="fileInput" name="file" accept="application/pdf" required>
+            </div>
+            <div class="d-flex justify-content-end">
+              <button id="hideFormButton" type="button"  class="btn btn-secondary me-2">Hide Form </button>
+              <button type="submit" class="btn btn-primary">Upload</button>
+            </div>
+        </form>
+        <div id="message" class="mt-3"></div>
+      </div>
+
     </main>
   </body>
   </html>

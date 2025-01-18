@@ -8,3 +8,7 @@ python-dotenv>=1.0.1
 psycopg2-binary
 python-multipart>=0.0.20
 httpx
+pymupdf
+weaviate-client
+sentence-transformers
+numpy<2

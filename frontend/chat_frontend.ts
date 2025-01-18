@@ -66,6 +66,8 @@ function onError(error: any) {
 async function onSubmit(e: SubmitEvent): Promise<void> {
   e.preventDefault()
   spinner.classList.add('active')
+  const messageDiv = document.getElementById('message')!
+  messageDiv.innerHTML = `<div class="hidden"></div>`
 
 
   const body = new FormData(e.target as HTMLFormElement)
@@ -77,8 +79,49 @@ async function onSubmit(e: SubmitEvent): Promise<void> {
   await onFetchResponse(response)
 }
 
+async function onFileUpload(e: SubmitEvent): Promise<void> {
+  e.preventDefault()
+  spinner.classList.add('active')
+
+  const fileInput = document.getElementById('fileInput') as HTMLInputElement
+  console.log('File:', fileInput);
+
+  const form = e.target as HTMLFormElement;
+  console.log('Form:', form);
+
+  const body = new FormData(form)
+  console.log('Form data:', body);
+
+  const response = await fetch('/upload/', { method: 'POST', body })
+  const result = await response.json()
+  const messageDiv = document.getElementById('message')!
+  if (response.ok) {
+    messageDiv.innerHTML = `<div class="alert alert-success">${result.message}</div>`
+  } else {
+    messageDiv.innerHTML = `<div class="alert alert-danger">${result.message}</div>`
+  }
+  spinner.classList.remove('active')
+}
+
 // call onSubmit when the form is submitted or when the user presses enter
-document.querySelector('form').addEventListener('submit', (e) => onSubmit(e).catch(onError))
+document.getElementById('chatInput').addEventListener('submit', (e) => onSubmit(e).catch(onError))
+
+
+document.getElementById('uploadForm').addEventListener('submit', (e) => { onFileUpload(e).catch(onError) })
+
+document.getElementById('showFormButton')!.addEventListener('click', () => {
+  const uploadForm = document.getElementById('uploadForm')!
+  uploadForm.style.display = 'block'
+  const showFormButton = document.getElementById('showFormButton')!
+  showFormButton.style.display = 'none'
+})
+
+document.getElementById('hideFormButton')!.addEventListener('click', () => {
+  const uploadForm = document.getElementById('uploadForm')!
+  uploadForm.style.display = 'none'
+  const showFormButton = document.getElementById('showFormButton')!
+  showFormButton.style.display = 'block'
+})
 
 // load messages on page load
 fetch('/chat/').then(onFetchResponse).catch(onError)
