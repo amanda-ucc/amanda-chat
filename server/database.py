@@ -1,4 +1,13 @@
-# will manage the database connection and queries
+#  Date: 18.01.2025
+# 
+#  Author: Amanda Uccello
+#  Class: ICS4UR-1
+#  School: Port Credit Secondary School
+#  Teacher: Mrs. Kim
+#  Description: 
+#      Handle the postgres database connection and queries
+#      Keeps track of the chat turns and messages
+
 
 from __future__ import annotations as _annotations
 

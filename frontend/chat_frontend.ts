@@ -1,3 +1,13 @@
+//  Date: 18.01.2025
+// 
+//  Author: Amanda Uccello
+//  Class: ICS4UR-1
+//  School: Port Credit Secondary School
+//  Teacher: Mrs. Kim
+//  Description: 
+//      Handles the code required for the frontend of the Amanda AI chat
+
+
 import { marked } from 'https://cdnjs.cloudflare.com/ajax/libs/marked/15.0.0/lib/marked.esm.js'
 const convElement = document.getElementById('conversation')
 const promptInput = document.getElementById('prompt-input') as HTMLInputElement

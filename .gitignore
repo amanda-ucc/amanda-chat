@@ -1,3 +1,12 @@
+#  Date: 18.01.2025
+# 
+#  Author: Amanda Uccello
+#  Class: ICS4UR-1
+#  School: Port Credit Secondary School
+#  Teacher: Mrs. Kim
+#  Description: 
+#      gitignore file so we don't track files that shouldn't be tracked
+
 .DS_Store
 # Byte-compiled / optimized / DLL files
 __pycache__/

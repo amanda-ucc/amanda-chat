@@ -1,9 +1,18 @@
+#  Date: 18.01.2025
+# 
+#  Author: Amanda Uccello
+#  Class: ICS4UR-1
+#  School: Port Credit Secondary School
+#  Teacher: Mrs. Kim
+#  Description: 
+#      Handles the weaviate vector database connection and queries
+#      Used for handling the document questions
+
 import os
 import fitz  # PyMuPDF
 import weaviate
 from weaviate.classes.config import Configure, Property, DataType, Tokenization
 from datetime import datetime
-
 
 
 # Initialize the client
