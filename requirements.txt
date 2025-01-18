@@ -3,3 +3,8 @@ logfire
 pydantic_ai
 opentelemetry-instrumentation-asgi
 uvicorn
+pydantic-ai>=0.0.12
+python-dotenv>=1.0.1
+psycopg2-binary
+python-multipart>=0.0.20
+httpx
