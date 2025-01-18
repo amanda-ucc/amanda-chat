@@ -5,6 +5,18 @@
 docker desktop <br>
 python version 3.12 <br>
 
+These environment variables should be set in .env file
+
+```bash
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=password
+POSTGRES_DB=chat_data
+
+OPENAI_API_KEY=<secret>
+GEO_API_KEY=<secret>
+WEATHER_API_KEY=<secret>
+```
+
 ## setup done once
 ```bash
 python -m venv amanda-chat
@@ -37,5 +49,5 @@ source amanda-chat/bin/activate
 
 
 pip install -r requirements.txt
-python chat_server.py
+python server/chat_server.py
 ```

@@ -1,4 +1,14 @@
-# Will hold the chat back end logic
+
+#  Date: 18.01.2025
+# 
+#  Author: Amanda Uccello
+#  Class: ICS4UR-1
+#  School: Port Credit Secondary School
+#  Teacher: Mrs. Kim
+#  Description: 
+#      This is the main server file for the Amanda AI chatbot server
+#      Will hold the chat back end logic
+
 from __future__ import annotations as _annotations
 from contextlib import asynccontextmanager
 import fastapi
@@ -232,7 +242,7 @@ app = fastapi.FastAPI(lifespan=lifespan)
 
 
 ## Frontend routes
-FRONTEND_DIR = Path(__file__).parent /'frontend'
+FRONTEND_DIR = Path(__file__).parent.parent /'frontend' # the frontend directory
 
 @app.get('/')
 async def index() -> FileResponse:
@@ -249,7 +259,10 @@ async def favicon() -> FileResponse:
     return FileResponse(FRONTEND_DIR / 'favicon.png', media_type='image/png')
 
 
-## Chat application
+## Server routes
+
+SERVER_DIR = Path(__file__).parent # the server directory
+
 class ChatMessage(TypedDict):
     """Format of messages sent to the browser."""
 
@@ -368,5 +381,5 @@ if __name__ == '__main__':
     import uvicorn
 
     uvicorn.run(
-        'chat_server:app', reload=True, reload_dirs=[str(FRONTEND_DIR)]
+        'chat_server:app', reload=True, reload_dirs=[str(FRONTEND_DIR), str(SERVER_DIR)]
     )
