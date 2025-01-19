@@ -40,7 +40,6 @@ import logfire
 from collections import deque
 
 sys.path.append(str(Path(__file__).parent.parent))
-print(f"PYTHONPATH is{os.environ.get('PYTHONPATH', 'not set')}")
 
 THIS_DIR = Path(__file__).parent
 
