@@ -32,6 +32,9 @@ import os
 import uuid
 from dotenv import load_dotenv
 
+## Load environment variables
+load_dotenv()
+
 import fastapi
 import logfire
 import logging
@@ -55,8 +58,6 @@ from pydantic_ai.messages import (
 from database import Database
 from vector_db import extract_text_from_pdf, ingest_text_to_weaviate, weaviate_client, search_documents
 
-## Load environment variables
-load_dotenv()
 
 dbname = os.getenv('POSTGRES_DB')
 dbuser = os.getenv('POSTGRES_USER')
@@ -75,6 +76,7 @@ agent = Agent(
         'You are a helpful assistent that can provides answers to many questions. '
         'When a user asks for `help` or `what can you do?` specifically then use the `help` tool and output exactly the text it return.'
         'If a the user asks for `about` or `who are you?` then use the `about` tool and output exactly the text it returns.'
+        'If the user asks for `the mark this project will get` then use the `mark` tool and output exactly the text it returns.'
     ), 
     deps_type=Deps, 
     retries=2     
@@ -111,6 +113,13 @@ async def about(ctx: RunContext[None]) -> str:
                - Teacher: Mrs. Kim
                - Date: January 2025
                - Model: GPT-4o
+               '''
+# About tool
+@agent.tool
+async def mark(ctx: RunContext[None]) -> str:
+    return f'''This project should probably get 100pct but 
+                I am not the teacher so I can say for sure. 
+                However, the project is probably a great start to creating an AI startup!
                '''
 
 # Latitute and Longitude tool
