@@ -79,6 +79,8 @@ async function onSubmit(e: SubmitEvent): Promise<void> {
   const messageDiv = document.getElementById('message')!
   messageDiv.innerHTML = `<div class="hidden"></div>`
 
+  const fileInput = document.getElementById('fileInput') as HTMLInputElement
+  fileInput.value = ''
 
   const body = new FormData(e.target as HTMLFormElement)
 
