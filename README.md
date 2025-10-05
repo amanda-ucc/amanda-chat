@@ -1,4 +1,4 @@
-# grade12-culminating
+# AI Chat Application used for grade12-culminating
 
 ## Pre-reqs
 
