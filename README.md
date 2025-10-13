@@ -1,4 +1,11 @@
-# AI Chat Application used for grade12-culminating
+# AI Chat Application With RAG used for grade12-culminating
+
+Video showcasing the RAG based chat app.
+
+
+[![Watch the video](https://github.com/user-attachments/assets/ce3c5ac0-b69e-4510-bfb3-1a90fe21fa28)](https://drive.google.com/file/d/1GCAEEqrMMcU4l4NFHNNZ8Lrd2gs3aNOr/view?usp=drive_link)
+
+
 
 ## Pre-reqs
 
